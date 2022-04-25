@@ -1,0 +1,5 @@
+-1 vai ser instalado em uma máquina padrão
+-2 quando for rodar o c# precisa mudar os diretórios 
+Ex: 
+- 3 Começar em uma Hora exata, exemplo 10:00 
+- 4
