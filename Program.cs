@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 namespace Automation_FiltRU
 {
     class Program
-    {
+    {            
         static void Main(string[] args)
         {
         //Console.WriteLine("Hello World!");
@@ -23,7 +23,8 @@ namespace Automation_FiltRU
             IWebElement campoUser = driver.FindElement(By.Id("User"));
             IWebElement campoSenha = driver.FindElement(By.Id("Password"));
             IWebElement btnLogin = driver.FindElement(By.Id("LoginButton"));
-            
+                       
+
             // FAzer login
             campoUser.SendKeys("16683");
             campoSenha.SendKeys("jW26uReb");
@@ -56,13 +57,13 @@ namespace Automation_FiltRU
             Thread.Sleep(40000);
 
             
-            string path = $@"C:\Users\HatchBack\Downloads\Chamados_Infraestrutura_Created_{date}_TimeZone_America_Manaus.xlsx";
+            string path = $@"C:\Users\dashboard.di\Downloads\Chamados_Infraestrutura_Created_{date}_TimeZone_America_Manaus.xlsx";
 
             
             //verifia se existe a planilha e apaga caso exista.
-            if (File.Exists(@"C:\Users\HatchBack\Downloads\bruto.xlsx"))
+            if (File.Exists(@"C:\Users\dashboard.di\Downloads\bruto.xlsx"))
             {
-                System.IO.File.Delete(@"C:\Users\HatchBack\Downloads\bruto.xlsx");
+                System.IO.File.Delete(@"C:\Users\dashboard.di\Downloads\bruto.xlsx");
             }
             //if (File.Exists(@"C:\Users\15992\Downloads\testecs\planilhabase.xlsx"))
             //{
@@ -76,7 +77,7 @@ namespace Automation_FiltRU
             if (result)
             {
                 string oldName = path;
-                string newName = @"C:\Users\HatchBack\Downloads\bruto.xlsx";
+                string newName = @"C:\Users\dashboard.di\Downloads\bruto.xlsx";
                 System.IO.File.Move(oldName, newName);
             }
             else
@@ -86,7 +87,7 @@ namespace Automation_FiltRU
 
             //Executa o script Python via CMD
             //Nos testes demorou 51 segs para ser efetuada a conversão via python.
-            string command = @"/C C:\Users\HatchBack\Documents\Automation_FiltRU\filtRU.exe";
+            string command = @"/C C:\Users\dashboard.di\Documents\filtRU.exe";
             Process.Start("cmd.exe", command);
 
             //Fecha o navegardor e os processos abertos com ele
@@ -98,12 +99,12 @@ namespace Automation_FiltRU
 
         //Abre o Power BI
         
-         String addPath = @"C:\Users\HatchBack\Documents\BI\BI\DashBoard Infraestrutura.pbix";
+         String addPath = @"C:\Users\dashboard.di\Documents\BI\BI\DashBoard Infraestrutura.pbix";
 
             DesktopOptions dop = new DesktopOptions();
             dop.ApplicationPath = addPath;
 
-            String url = @"C:\Users\HatchBack\Documents\Automation_FiltRU\Winium";
+            String url = @"C:\Users\dashboard.di\Documents\Winium";
             IWebDriver openDriver = new WiniumDriver(url, dop);
 
             Mouse:
@@ -118,9 +119,12 @@ namespace Automation_FiltRU
             {
                 goto Mouse;
             }
+
+            Thread.Sleep(10000);
+            openDriver.Close();
             
         }
-
+        //Classe para setar o mouse em alguma posição
         [DllImport("user32.dll")]
         static extern bool SetCursorPos(int X, int Y);
 
@@ -128,6 +132,8 @@ namespace Automation_FiltRU
         {
             SetCursorPos(x, y);
         }
+        
+
 
     }
 }
