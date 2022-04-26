@@ -122,7 +122,7 @@ namespace Automation_FiltRU
 
             Thread.Sleep(10000);
             openDriver.Close();
-            
+            Environment.Exit(0);
         }
         //Classe para setar o mouse em alguma posição
         [DllImport("user32.dll")]
