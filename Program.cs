@@ -107,7 +107,7 @@ namespace Automation_FiltRU
             String url = @"C:\Users\dashboard.di\Documents\Winium";
             IWebDriver openDriver = new WiniumDriver(url, dop);
 
-            Mouse:
+            atualizar:
             //SetCursorPosition(852,135);
 
             Thread.Sleep(5000);
@@ -117,12 +117,34 @@ namespace Automation_FiltRU
             }
             catch
             {
-                goto Mouse;
+                openDriver.FindElement(By.Id("refreshQueries")).Click();
+                goto atualizar;
             }
 
             Thread.Sleep(10000);
+
+            save:
+            try
+            {
+                openDriver.FindElement(By.Id("save")).Click();
+            }
+            catch
+            {
+                goto save;
+            }            
+            
+            Thread.Sleep(10000);
             openDriver.Close();
-            Environment.Exit(0);
+
+            //Encerra os processos restantes
+            var processes = Process.GetProcessesByName("Winium.Desktop.Driver");
+            foreach (Process process in processes)
+                process.Kill();
+
+            processes = Process.GetProcessesByName("Automation_FiltRU");
+            foreach (Process process in processes)
+                process.Kill();
+
         }
         //Classe para setar o mouse em alguma posição
         [DllImport("user32.dll")]
